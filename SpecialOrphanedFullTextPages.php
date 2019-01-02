@@ -17,6 +17,12 @@ class SpecialOrphanedFullTextPages extends SpecialPage {
 		$anyResults = false;
 		$text = '';
 		foreach ( $res as $row ) {
+			if ( $par == 'excludesubpages' ) {
+				$title = Title::newFromText( 'Full text:' . $row->page_title );
+				if ( $title->isSubpage() ) {
+					continue;
+				}
+			}
 			$title = $dbr->selectField(
 				'page',
 				'page_title',
