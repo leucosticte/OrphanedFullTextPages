@@ -8,7 +8,7 @@ class SpecialOrphanedFullTextPages extends SpecialPage {
 		$request = $this->getRequest();
 		$output = $this->getOutput();
 		$this->setHeaders();
-		$wikitext = '<poem>';
+		#$output->addWikiText ( '<poem>' );
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
 			'page',
@@ -16,6 +16,7 @@ class SpecialOrphanedFullTextPages extends SpecialPage {
 			array( 'page_namespace' => 3000 )
 		);
 		$anyResults = false;
+		$text = '';
 		foreach ( $res as $row ) {
 			$title = $dbr->selectField(
 				'page',
@@ -24,17 +25,27 @@ class SpecialOrphanedFullTextPages extends SpecialPage {
 			);
 			if ( !$title ) {
 				if ( !$anyResults ) {
-					$wikitext .= "The following Full text: pages are orphaned:\n\n";
+					$output->addWikiText ( "The following Full text: pages are orphaned:\n\n" );
 					$anyResults = true;
 				}
-				$wikitext .= '[[Full text:' . str_replace( '_', ' ', $row->page_title ) . "]]\n";
+				$text .= '[[Full text:' . str_replace( '_', ' ', $row->page_title ) . "]]\n";
 			}
 		}
 		if ( !$anyResults ) {
-			$wikitext .= "No orphaned Full text: pages were found.";
+			$output->addWikiText( "No orphaned Full text: pages were found." );
+		} else {
+			$params = array(
+				'id' => 'wpTextbox1',
+				'name' => 'wpTextbox1',
+				'cols' => $this->getUser()->getOption( 'cols' ),
+				'rows' => $this->getUser()->getOption( 'rows' ),
+				'readonly' => 'readonly'
+				#'lang' => $pageLang->getHtmlCode(),
+				#'dir' => $pageLang->getDir(),
+			);
+			$output->addHTML( Html::element( 'textarea', $params, $text ) );
 		}
-		$wikitext .= '</poem>';
-		$output->addWikiText ( $wikitext );
+		#$output->addWikiText( '</poem>' );
 	}
 	
 	function getGroupName() {
