@@ -8,7 +8,6 @@ class SpecialOrphanedFullTextPages extends SpecialPage {
 		$request = $this->getRequest();
 		$output = $this->getOutput();
 		$this->setHeaders();
-		#$output->addWikiText ( '<poem>' );
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
 			'page',
@@ -28,7 +27,8 @@ class SpecialOrphanedFullTextPages extends SpecialPage {
 					$output->addWikiText ( "The following Full text: pages are orphaned:\n\n" );
 					$anyResults = true;
 				}
-				$text .= '[[Full text:' . str_replace( '_', ' ', $row->page_title ) . "]]\n";
+				$text .= 'Full text:' . str_replace( '_', ' ', $row->page_title ) . "\n";
+				$output->addWikiText ( '[[Full text:' . str_replace( '_', ' ', $row->page_title ) . "]]\n" );
 			}
 		}
 		if ( !$anyResults ) {
