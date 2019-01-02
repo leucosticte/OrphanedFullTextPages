@@ -1,0 +1,10 @@
+{
+    "@metadata": {
+        "authors": [
+            "Nathan Larson"
+        ]
+    },
+    "orphanedfulltextpages": "Orphaned full text pages",
+	"orphanedfulltextpages-desc": "Displays a list of orphaned full text pages.",
+	"orphanedfulltextpages-summary": "Display a list of orphaned full text pages."
+}

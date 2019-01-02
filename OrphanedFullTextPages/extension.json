@@ -1,0 +1,26 @@
+{
+	"name": "OrphanedFullTextPages",
+	"version": "1.1.0",
+	"author": [
+		"Nathan Larson"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:OrphanedFullTextPages",
+	"description": "Displays a list of orphaned full text pages",
+	"license-name": "GPL",
+	"type": "specialpage",
+	"AutoloadClasses": {
+		"SpecialOrphanedFullTextPages": "SpecialOrphanedFullTextPages.php"
+	},
+	"SpecialPages": {
+		"OrphanedFullTextPages": "SpecialOrphanedFullTextPages"
+	},
+	"ExtensionMessagesFiles": {
+		"OrphanedFullTextPagesAlias": "i18n/OrphanedFullTextPages.i18n.alias.php"
+	},
+	"MessagesDirs": {
+		"OrphanedFullTextPages": [
+			"i18n"
+		]
+	},
+	"manifest_version": 1
+}
